@@ -1,0 +1,314 @@
+<html>
+<audio autoplay>
+      <source src="noise.mp3">
+  </audio>
+<link href='https://fonts.googleapis.com/css?family=Abril+Fatface' rel='stylesheet' type='text/css'>
+<body>
+<div id="wrapper">
+
+     
+
+
+
+<button onClick="bet()">Place Bet</button>
+
+
+<button id="play" onClick="firstRoll()">Let's Play!</button>
+
+
+<button id="roll" onClick="rollDice()" onmousedown="dieSound.play()">Roll Dice</button>
+
+<div id="name">CRAPS!</div>
+
+<div id="score"></div>
+
+
+<div id="photo"></div>
+
+<div id="photo2"></div>
+<div id="markTxt"></div>
+
+<table id="tableMark">
+	<tr>
+	<th>MARK</th>
+	</tr>
+	<td id="mark"></td>
+</table>
+<br>
+<table>
+  <tr>
+  	<th>Bet</th>
+    <th>Won</th>
+    <th>Bank Balance</th>
+    </tr>
+    <tr>
+    <td id="betAmount"></td>
+    <td id="won" class="won"></td>
+    <td id="bankBalance"></td>
+  </tr>
+</table>
+<div id="tablePic"></div>
+
+
+<style>
+#tableMark{
+	width:40px;
+	float:right;
+	margin-bottom:2px;
+}
+#mark{
+	
+	height:20px;
+	width:20px;
+	color:white;
+	border:solid white;
+	text-align:center;
+
+
+}
+
+#name{
+	font-family: 'Abril Fatface', cursive;
+	font-size:50px;
+	color:white;
+	letter-spacing:8px;
+	text-align:center;
+	margin-bottom:20px;
+}
+
+#tablePic{
+	background-image:url("images/table.gif");
+	height:205;
+	margin-top:0px;
+	overflow:none;
+}
+
+#wrapper{
+	padding:8 5 5 5;
+	height:515px;
+	width:320px;
+	background-color:green;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#score{
+	margin-top:5px;
+	text-align:center;
+	color:white;
+	font-size:19px;
+	font-family:"Gill Sans";
+}
+img{
+	height:100px;
+	width:100px;
+	margin-top:30px;
+	margin-left:34%;
+}
+
+table{
+	border:3px solid white;
+	margin-top:65
+	px;
+	width:100%;
+	color:white;
+	font-family:"Gill Sans";
+
+}
+button{
+	margin-left:21px;
+	margin-right:auto;
+	background-color:white;
+	font-weight:bold;
+	letter-spacing:.5px;
+	
+}
+
+td{
+	border:1px solid white;
+}
+</style>
+
+
+<script>
+
+var x = window.onload = prompt("Feeling lucky? How much money would you like to start with?");
+
+	document.getElementById("bankBalance").innerHTML = x;
+
+	
+	function bet(){
+Bet = window.prompt("How much are you brave enough to bet?", "0");
+Bet = parseInt(Bet);
+
+document.getElementById("won").innerHTML = "";
+
+document.getElementById("betAmount").innerHTML = Bet;
+document.getElementById("betAmount").style.width="10%";
+document.getElementById("betAmount").style.height="5%";
+}
+
+var diePic = document.getElementById("photo");
+var diePic2 = document.getElementById("photo2");
+
+
+
+function rollDice(){
+	var die1 = Math.floor(Math.random()*6 + 1);
+	var die2 = Math.floor(Math.random()*6 + 1);
+	var score = die1 + die2;
+
+
+	if(die1 == 1){diePic.innerHTML = '<img src="images/1.png">';}
+
+else if(die1 == 2){diePic.innerHTML = '<img src="images/2.png">';}
+
+else if(die1 == 3){diePic.innerHTML = '<img src="images/3.png">';}
+
+else if(die1 == 4){diePic.innerHTML = '<img src="images/4.png">';}
+
+else if(die1 == 5){diePic.innerHTML = '<img src="images/5.png">';}
+
+else if(die1 == 6){diePic.innerHTML = '<img src="images/6.png">';}
+
+	 if(die2 == 1){diePic2.innerHTML = '<img src="images/1.png">';}
+
+else if(die2 == 2){diePic2.innerHTML = '<img src="images/2.png">';}
+
+else if(die2 == 3){diePic2.innerHTML = '<img src="images/3.png">';}
+
+else if(die2 == 4){diePic2.innerHTML = '<img src="images/4.png">';}
+
+else if(die2 == 5){diePic2.innerHTML = '<img src="images/5.png">';}
+
+else if(die2 == 6){diePic2.innerHTML = '<img src="images/6.png">';}
+
+document.getElementById("score").innerHTML = "You rolled a "+die1+" and a "+die2+" for a score of "+score;
+
+
+if(score == document.getElementById("mark").innerHTML){
+	alert("You got the Mark!");
+	document.getElementById("won").innerHTML = Bet * 5;
+
+	var newBalance = parseFloat(document.getElementById("bankBalance").innerHTML) + parseInt(document.getElementById("won").innerHTML);
+	
+	document.getElementById("bankBalance").innerHTML = newBalance;
+}
+
+else if(score === 2){
+	alert("SNAKE EYES! You lose!");
+	
+	document.getElementById("bankBalance").innerHTML = document.getElementById("bankBalance").innerHTML - document.getElementById("betAmount").innerHTML;}
+
+else if(score === 7){
+	alert("7! You Crapped Out!");
+	document.getElementById("bankBalance").innerHTML = document.getElementById("bankBalance").innerHTML - document.getElementById("betAmount").innerHTML;
+	
+	
+
+	//document.getElementById("bankBalance").innerHTML == document.getElementById("bankBalance").innerHTML + document.getElementById("won").innerHTML;
+}}
+
+
+function firstRoll(){
+	var die1 = Math.floor(Math.random()*6 + 1);
+	var die2 = Math.floor(Math.random()*6 + 1);
+	var score = die1 + die2;
+
+	document.getElementById("play").style.visibility="hidden";
+	document.getElementById("roll").style.visibility="block";
+	document.getElementById("roll").style.float="left";
+	document.getElementById("betAmount").style="none";
+	document.getElementById("name").style.visibility="hidden";
+	document.getElementById("tablePic").style.visibility="hidden";
+	document.body.style['overflow-y'] = 'hidden';
+
+
+	if(die1 == 1){diePic.innerHTML = '<img src="images/1.png">';}
+
+else if(die1 == 2){diePic.innerHTML = '<img src="images/2.png">';}
+
+else if(die1 == 3){diePic.innerHTML = '<img src="images/3.png">';}
+
+else if(die1 == 4){diePic.innerHTML = '<img src="images/4.png">';}
+
+else if(die1 == 5){diePic.innerHTML = '<img src="images/5.png">';}
+
+else if(die1 == 6){diePic.innerHTML = '<img src="images/6.png">';}
+
+	 if(die2 == 1){diePic2.innerHTML = '<img src="images/1.png">';}
+
+else if(die2 == 2){diePic2.innerHTML = '<img src="images/2.png">';}
+
+else if(die2 == 3){diePic2.innerHTML = '<img src="images/3.png">';}
+
+else if(die2 == 4){diePic2.innerHTML = '<img src="images/4.png">';}
+
+else if(die2 == 5){diePic2.innerHTML = '<img src="images/5.png">';}
+
+else if(die2 == 6){diePic2.innerHTML = '<img src="images/6.png">';}
+
+document.getElementById("score").innerHTML = "You rolled a "+die1+" and a "+die2+" for a score of "+score;
+
+//document.getElementById("betAmount").innerHTML="";
+
+if(score === 2){alert("SNAKE EYES! You lose! Better luck next time.")
+	document.getElementById("bankBalance").innerHTML = document.getElementById("bankBalance").innerHTML - document.getElementById("betAmount").innerHTML;}
+
+else if(score === 3){alert("3's a Loser! You crapped out! Better luck next time.");
+	document.getElementById("bankBalance").innerHTML = document.getElementById("bankBalance").innerHTML - document.getElementById("betAmount").innerHTML;}
+
+else if(score === 4){alert("4 is the Mark! You want to roll another 4!")
+	document.getElementById("mark").innerHTML = score;
+}
+else if(score === 5){alert("5 is the Mark! You want to roll another 5!")
+	document.getElementById("mark").innerHTML = score;
+}
+else if(score === 6){alert("6 is the Mark! You want to roll another 6!")
+	document.getElementById("mark").innerHTML = score;
+}
+else if(score ===7){
+	alert("7! WINNER WINNER!");
+	document.getElementById("won").innerHTML = document.getElementById("betAmount").innerHTML * 5;
+	
+	var newBalance = parseFloat(document.getElementById("bankBalance").innerHTML) + parseInt(document.getElementById("won").innerHTML);
+	
+	document.getElementById("bankBalance").innerHTML = newBalance;}
+
+else if(score === 8){alert("8 is the Mark! You want to roll another 8!")
+	document.getElementById("mark").innerHTML = score;}
+
+else if(score === 9){alert("9 is the Mark! You want to roll another 9!")
+	document.getElementById("mark").innerHTML = score;}
+
+else if(score === 10){alert("10 is the Mark! You want to roll another 10!")
+	document.getElementById("mark").innerHTML = score;}
+
+
+else if(score ===12){alert("12's a Loser! You crapped out! Better luck next time.");
+	document.getElementById("bankBalance").innerHTML = document.getElementById("bankBalance").innerHTML - document.getElementById("betAmount").innerHTML;}
+
+else if(score === 11){alert("11! WINNER WINNER!");
+	
+	document.getElementById("won").innerHTML = document.getElementById("betAmount").innerHTML * 5;
+	
+	var newBalance = parseFloat(document.getElementById("bankBalance").innerHTML) + parseInt(document.getElementById("won").innerHTML);
+	
+	document.getElementById("bankBalance").innerHTML = newBalance;}
+
+
+console.log(score);
+}
+
+
+	var dieSound = new Audio();
+        dieSound.src = "diceRoll.wav";
+
+
+</script>
+
+
+
+</div>
+</body>
+</html>
